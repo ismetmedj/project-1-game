@@ -18,15 +18,18 @@
         <div id="score-time">
           <h2>
             Score:<br />
-            0
+            <span id="score">0</span>
           </h2>
           <hr />
           <h2>Time:<br />00:00</h2>
         </div>
 
-        <div id="health">
+        <div>
           <hr />
-          <h2>Health:<br />❤️ ❤️ ❤️</h2>
+          <h2>
+            Health:<br />
+            <span class="health">3</span>
+          </h2>
           <hr />
         </div>
       </section>
@@ -37,8 +40,7 @@
           <button id="score-table">Score Table</button>
         </div>
 
-        <div id="grid">
-        </div>
+        <div id="grid"></div>
       </section>
 
       <section id="right-section">
@@ -69,6 +71,22 @@
         </ul>
       </section>
     </main>
+
+    <dialog id="dialog-end-level">
+      <p>Well done! Level finished ! Your score :</p>
+      <button>I've done my best</button>
+      <button>Go to next level</button>
+    </dialog>
+
+    <dialog id="dialog-end-game">
+      <button>You lose ... <br />Your score:</button>
+      <button>Reset</button>
+    </dialog>
+
+    <dialog id="dialog-lose-life">
+      <button>You lose a life...<span class="health">3 remaining</span></button>
+      <button id="button-restart">Restart</button>
+    </dialog>
 
     <footer>
       <h4>Credits:</h4>

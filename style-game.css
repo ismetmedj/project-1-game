@@ -30,6 +30,7 @@ main {
   flex-shrink: 1;
   border: 1px solid black;
   text-align: center;
+  width: 20vw;
 }
 
 #score-time {
@@ -50,7 +51,7 @@ h2 {
 #left-section,
 #center-section,
 #right-section {
-  height: 90vh;
+  height: 88vh;
 }
 
 #center-section {
@@ -68,7 +69,6 @@ h2 {
   margin: 0.5rem;
   padding: 0.5rem;
   border-bottom: 1px solid black;
-
 }
 
 #start-game,
@@ -82,7 +82,7 @@ h2 {
   display: flex;
   flex-direction: column;
   text-align: center;
-  max-width: 20vw;
+  width: 20vw;
   flex-shrink: 1;
   border: 1px solid black;
 }
@@ -99,5 +99,31 @@ h2 {
 }
 
 #grid {
-  height: 70vh;
+  height: 74.5%;
+  width: 52%;
+  display: grid;
+  justify-content: center;
+  margin-left: 11rem;
+  grid-template-columns: repeat(10, 40px);
+  grid-template-rows: repeat(10, 40px);
+  background-color: blue;
+}
+
+.cell {
+  /* outline: 1px solid red; */
+  /* background-color: blue; */
+}
+
+.player {
+  background-color: green;
+}
+
+.bad {
+  background-color: red;
+  border-radius: 50%;
+}
+
+dialog {
+  margin: auto;
+  padding: 2rem;
 }
