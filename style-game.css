@@ -143,11 +143,11 @@ dialog {
 }
 
 #dialog-end-game::backdrop {
-  backdrop-filter: sepia(1) brightness(50%) blur(5px);
+  /* backdrop-filter: sepia(1) brightness(50%) blur(5px); */
 }
 
 #dialog-end-level::backdrop {
-  backdrop-filter: sepia(1) brightness(50%) blur(5px);
+  /* backdrop-filter: sepia(1) brightness(50%) blur(5px); */
 }
 
 #dialog-end-game > p {

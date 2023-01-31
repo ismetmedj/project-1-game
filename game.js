@@ -10,17 +10,25 @@ const minutes = document.getElementById("minutes");
 const seconds = document.getElementById("seconds");
 const finalScore = document.querySelectorAll(".final-score");
 const resetGame = document.getElementById("button-reset");
+const nextLevel = document.querySelector('.button-end-level');
 
 const colums = 10;
 const rows = 10;
 const cellsClass = [];
 const cellElements = [];
 let playerPosition = 95;
-let showScore = 0;
+let showScore = 0; // 
+let aimScore = 0;
+let goalScore = 50;
 let health = 3;
 let intervalId = null;
 let timerInterval = null;
 let timeOutId = null;
+let speed = 500
+let numberOfEnemies = 1
+let pause = false
+let counterSeconds = 0;
+let counterMinutes = 0;
 
 //Set the grid
 function createGrid() {
@@ -112,12 +120,11 @@ function startGame(speed) {
   let i = 0;
 
   intervalId = setInterval(() => {
-    createEnemies(1);
+    createEnemies(numberOfEnemies);
     displayGrid();
     i += speed / 10;
     if (i > speed) {
       // console.log(i);
-
       displayScore();
     }
     endLevel();
@@ -158,7 +165,12 @@ function getRandomArbitrary() {
 //add the random score calculated up to the score and display it every X seconds
 function displayScore() {
   // timeOutId =setTimeout(() => {
-  showScore += getRandomArbitrary();
+    // console.log(pause);
+    if (!pause) {
+      showScore += getRandomArbitrary();
+    }
+  
+  aimScore = showScore;
   score.textContent = showScore;
   // }, 10000);
 }
@@ -170,14 +182,33 @@ function displayFinalScore() {
 //allow us to show a dialog message to say the level is finished after hitting
 //a certain score
 function endLevel() {
-  if (showScore > 50) {
+ 
+  if(health <= 0){
+    endGame();
+
+  } else {
+  if (aimScore > goalScore) {
+    pause = true
     modalEndLevel.showModal();
     playerPosition = 95;
-    clearInterval(intervalId);
-    clearInterval(timerInterval);
-    // clearTimeout(timeOutId);
+    // clearInterval(intervalId);
+    // clearInterval(timerInterval);
+    cellsClass.splice(0, cellsClass.length);
     displayFinalScore();
-  }
+    goalScore *= 3;
+    speed = speed/1.6;
+    numberOfEnemies++;
+    nextLevel.addEventListener("click", () => {
+      createGrid();
+      aimScore = 0;
+      displayGrid();
+      pause = false
+      startGame(speed);
+
+    
+    })
+  } 
+}
 }
 
 //show dialog message saying you lose the game
@@ -195,11 +226,17 @@ function endGame() {
     score.textContent = showScore;
     health = 3;
     healthElement.textContent = health;
+    counterSeconds = 0;
+    counterMinutes = 0;
     minutes.textContent = '00'
     seconds.textContent = '00'
+    aimScore = 0;
+    goalScore = 50;
+    speed = 1000
+    numberOfEnemies = 1
     // displayScore()
     displayGrid();
-    startGame(500);
+    startGame(speed);
   });
 }
 
@@ -213,15 +250,19 @@ function loseHealth() {
 }
 
 function displayTime() {
-  let counterSeconds = 0;
-  let counterMinutes = 0;
   timerInterval = setInterval(() => {
-    counterSeconds++;
+    if (!pause) {
+      counterSeconds++;
+        }
+    
+
     if (counterSeconds > 59) {
       counterSeconds = 0;
       counterMinutes++;
+
       minutes.textContent = `0${counterMinutes}`;
     }
+    
     if (counterSeconds < 10) {
       seconds.textContent = `0${counterSeconds}`;
     } else {
@@ -230,9 +271,10 @@ function displayTime() {
   }, 1000);
 }
 
-buttonStart.addEventListener("click", () => startGame(500), { once: true });
+buttonStart.addEventListener("click", () => startGame(speed), { once: true });
 
 resetGame.addEventListener("click", () => {
   createGrid();
-  startGame(500);
+  // startGame(500);
 });
+
