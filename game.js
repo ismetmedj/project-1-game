@@ -3,7 +3,7 @@ let score = document.getElementById("score");
 const modalEndLevel = document.getElementById("dialog-end-level");
 const modalEndGame = document.getElementById("dialog-end-game");
 const buttonStart = document.getElementById("start-game");
-const healthElement = document.querySelectorAll(".health");
+const healthElement = document.querySelector(".health");
 // const modalLoseLife = document.getElementById("dialog-lose-life");
 const buttonRestart = document.getElementById("button-restart");
 const minutes = document.getElementById("minutes");
@@ -57,12 +57,11 @@ function displayGrid() {
       if (cell === "bad") {
         hidePlayer();
         health--;
-        healthElement.forEach((i) => {
-          i.textContent = health;
-          if (health <= 0) {
-            return endGame();
-          }
-        });
+        healthElement.textContent = health;
+        if (health <= 0) {
+          return endGame();
+        }
+
         //console.log("Collision !");
         return loseHealth();
       }
@@ -103,6 +102,7 @@ createGrid();
 function startGame(speed) {
   clearInterval(intervalId);
   clearInterval(timerInterval);
+
   // score =0;
   modalEndGame.close();
   modalEndLevel.close();
@@ -161,14 +161,10 @@ function displayScore() {
   showScore += getRandomArbitrary();
   score.textContent = showScore;
   // }, 10000);
-  return showScore;
 }
 
 function displayFinalScore() {
-  finalScore.textContent = displayScore();
-  console.log(finalScore.textContent);
-
-  return finalScore.textContent;
+  finalScore.forEach((el) => (el.textContent = showScore));
 }
 
 //allow us to show a dialog message to say the level is finished after hitting
@@ -180,7 +176,7 @@ function endLevel() {
     clearInterval(intervalId);
     clearInterval(timerInterval);
     // clearTimeout(timeOutId);
-    finalScore.textContent = showScore;
+    displayFinalScore();
   }
 }
 
@@ -189,18 +185,31 @@ function endGame() {
   modalEndGame.showModal();
   clearInterval(intervalId);
   clearInterval(timerInterval);
+  cellsClass.splice(0, cellsClass.length);
+  displayFinalScore();
+
   // clearTimeout(timeOutId);
-  health = 3;
-  resetGame.addEventListener("click", () => startGame(1000));
+
+  resetGame.addEventListener("click", () => {
+    showScore = 0;
+    score.textContent = showScore;
+    health = 3;
+    healthElement.textContent = health;
+    minutes.textContent = '00'
+    seconds.textContent = '00'
+    // displayScore()
+    displayGrid();
+    startGame(500);
+  });
 }
 
 function loseHealth() {
   // modalLoseLife.showModal();
   // clearInterval(intervalId);
   // clearInterval(timerInterval);
-  buttonRestart.addEventListener("click", () => startGame(1000), {
-    once: true,
-  });
+  // buttonRestart.addEventListener("click", () => startGame(1000), {
+  // once: true,
+  // });
 }
 
 function displayTime() {
@@ -225,5 +234,5 @@ buttonStart.addEventListener("click", () => startGame(500), { once: true });
 
 resetGame.addEventListener("click", () => {
   createGrid();
-  startGame(1000);
+  startGame(500);
 });
