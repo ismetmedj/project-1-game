@@ -10,23 +10,23 @@ const minutes = document.getElementById("minutes");
 const seconds = document.getElementById("seconds");
 const finalScore = document.querySelectorAll(".final-score");
 const resetGame = document.getElementById("button-reset");
-const nextLevel = document.querySelector('.button-end-level');
+const nextLevel = document.querySelector(".button-end-level");
 
 const colums = 10;
 const rows = 10;
 const cellsClass = [];
 const cellElements = [];
 let playerPosition = 95;
-let showScore = 0; // 
+let showScore = 0; //
 let aimScore = 0;
 let goalScore = 50;
 let health = 3;
 let intervalId = null;
 let timerInterval = null;
 let timeOutId = null;
-let speed = 500
-let numberOfEnemies = 1
-let pause = false
+let speed = 1000;
+let numberOfEnemies = 1;
+let pause = false;
 let counterSeconds = 0;
 let counterMinutes = 0;
 
@@ -66,6 +66,11 @@ function displayGrid() {
         hidePlayer();
         health--;
         healthElement.textContent = health;
+        if (cell === "life") {
+          health++;
+          console.log(health);
+          healthElement.textContent = health;
+        }
         if (health <= 0) {
           return endGame();
         }
@@ -98,12 +103,16 @@ function createEnemies(number) {
   const newLineEnemies = new Array(10).fill("");
   for (let i = 0; i < number; i++) {
     const randomIndex = Math.floor(Math.random() * newLineEnemies.length);
-    newLineEnemies[randomIndex] = "bad";
+    if (health < 2 && randomIndex > 8) {
+      const randomLife = Math.floor(Math.random() * newLineEnemies.length);
+      newLineEnemies[randomLife] = "life";
+    } else {
+      newLineEnemies[randomIndex] = "bad";
+    }
+    cellsClass.splice(-10);
+    cellsClass.unshift(...newLineEnemies);
   }
-  cellsClass.splice(-10);
-  cellsClass.unshift(...newLineEnemies);
 }
-
 createGrid();
 //displayScore();
 
@@ -165,11 +174,11 @@ function getRandomArbitrary() {
 //add the random score calculated up to the score and display it every X seconds
 function displayScore() {
   // timeOutId =setTimeout(() => {
-    // console.log(pause);
-    if (!pause) {
-      showScore += getRandomArbitrary();
-    }
-  
+  // console.log(pause);
+  if (!pause) {
+    showScore += getRandomArbitrary();
+  }
+
   aimScore = showScore;
   score.textContent = showScore;
   // }, 10000);
@@ -182,33 +191,30 @@ function displayFinalScore() {
 //allow us to show a dialog message to say the level is finished after hitting
 //a certain score
 function endLevel() {
- 
-  if(health <= 0){
+  if (health <= 0) {
     endGame();
-
   } else {
-  if (aimScore > goalScore) {
-    pause = true
-    modalEndLevel.showModal();
-    playerPosition = 95;
-    // clearInterval(intervalId);
-    // clearInterval(timerInterval);
-    cellsClass.splice(0, cellsClass.length);
-    displayFinalScore();
-    goalScore *= 3;
-    speed = speed/1.6;
-    numberOfEnemies++;
-    nextLevel.addEventListener("click", () => {
-      createGrid();
-      aimScore = 0;
-      displayGrid();
-      pause = false
-      startGame(speed);
-
-    
-    })
-  } 
-}
+    if (aimScore > goalScore) {
+      pause = true;
+      modalEndLevel.showModal();
+      playerPosition = 95;
+      // clearInterval(intervalId);
+      // clearInterval(timerInterval);
+      cellsClass.splice(0, cellsClass.length);
+      displayFinalScore();
+      goalScore *= 3;
+      speed = speed / 1.5;
+      numberOfEnemies++;
+      nextLevel.addEventListener("click", () => {
+        createGrid();
+        aimScore = 0;
+        displayGrid();
+        pause = false;
+        startGame(speed);
+        // console.log(speed);
+      });
+    }
+  }
 }
 
 //show dialog message saying you lose the game
@@ -228,12 +234,12 @@ function endGame() {
     healthElement.textContent = health;
     counterSeconds = 0;
     counterMinutes = 0;
-    minutes.textContent = '00'
-    seconds.textContent = '00'
+    minutes.textContent = "00";
+    seconds.textContent = "00";
     aimScore = 0;
     goalScore = 50;
-    speed = 1000
-    numberOfEnemies = 1
+    speed = 1000;
+    numberOfEnemies = 1;
     // displayScore()
     displayGrid();
     startGame(speed);
@@ -253,8 +259,7 @@ function displayTime() {
   timerInterval = setInterval(() => {
     if (!pause) {
       counterSeconds++;
-        }
-    
+    }
 
     if (counterSeconds > 59) {
       counterSeconds = 0;
@@ -262,7 +267,7 @@ function displayTime() {
 
       minutes.textContent = `0${counterMinutes}`;
     }
-    
+
     if (counterSeconds < 10) {
       seconds.textContent = `0${counterSeconds}`;
     } else {
@@ -277,4 +282,3 @@ resetGame.addEventListener("click", () => {
   createGrid();
   // startGame(500);
 });
-

@@ -123,6 +123,15 @@ h2 {
 .bad {
   background-color: red;
   border-radius: 50%;
+  /* width: 0;
+  height: 0;
+  border-right: 18px solid transparent;
+  border-left: 18px solid transparent;
+  border-top: 30px solid red; */
+}
+
+.life {
+  background-color: yellow;
 }
 
 dialog {
