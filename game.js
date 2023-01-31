@@ -4,8 +4,12 @@ const modalEndLevel = document.getElementById("dialog-end-level");
 const modalEndGame = document.getElementById("dialog-end-game");
 const buttonStart = document.getElementById("start-game");
 const healthElement = document.querySelectorAll(".health");
-const modalLoseLife = document.getElementById("dialog-lose-life");
+// const modalLoseLife = document.getElementById("dialog-lose-life");
 const buttonRestart = document.getElementById("button-restart");
+const minutes = document.getElementById("minutes");
+const seconds = document.getElementById("seconds");
+const finalScore = document.querySelectorAll(".final-score");
+const resetGame = document.getElementById("button-reset");
 
 const colums = 10;
 const rows = 10;
@@ -14,6 +18,9 @@ const cellElements = [];
 let playerPosition = 95;
 let showScore = 0;
 let health = 3;
+let intervalId = null;
+let timerInterval = null;
+let timeOutId = null;
 
 //Set the grid
 function createGrid() {
@@ -52,6 +59,9 @@ function displayGrid() {
         health--;
         healthElement.forEach((i) => {
           i.textContent = health;
+          if (health <= 0) {
+            return endGame();
+          }
         });
         //console.log("Collision !");
         return loseHealth();
@@ -88,16 +98,28 @@ function createEnemies(number) {
 }
 
 createGrid();
-// startGame(1000);
-displayScore();
+//displayScore();
 
 function startGame(speed) {
+  clearInterval(intervalId);
+  clearInterval(timerInterval);
+  // score =0;
   modalEndGame.close();
   modalEndLevel.close();
-  modalLoseLife.close();
-  setInterval(() => {
+  // modalLoseLife.close();
+  displayTime();
+
+  let i = 0;
+
+  intervalId = setInterval(() => {
     createEnemies(1);
     displayGrid();
+    i += speed / 10;
+    if (i > speed) {
+      // console.log(i);
+
+      displayScore();
+    }
     endLevel();
   }, speed);
 }
@@ -105,16 +127,6 @@ function startGame(speed) {
 //function to understand the key that are pressed and act depending on the
 //key pressed
 window.addEventListener("keydown", (event) => {
-  // if (event.key == '39')
-  // { playerPosition++;
-  //   displayPlayer(playerPosition);
-  // } else if (event.key == '37'){
-  //     playerPosition--;
-  //     displayPlayer(playerPosition);
-  // } else {
-  //     return;
-  // }
-
   switch (event.code) {
     case "ArrowLeft":
       //allow us to keep the player inside the grid (on the left side)
@@ -138,50 +150,80 @@ window.addEventListener("keydown", (event) => {
   }
 });
 
-// to get a random score between 6 and 10
+// to get a random score between 3 and 6
 function getRandomArbitrary() {
-  return Math.floor(Math.random() * (11 - 6) + 6);
+  return Math.floor(Math.random() * (6 - 3) + 3);
 }
 
 //add the random score calculated up to the score and display it every X seconds
 function displayScore() {
-  setInterval(() => {
-    showScore += getRandomArbitrary();
-    score.textContent = showScore;
-  }, 10000);
+  // timeOutId =setTimeout(() => {
+  showScore += getRandomArbitrary();
+  score.textContent = showScore;
+  // }, 10000);
+  return showScore;
+}
+
+function displayFinalScore() {
+  finalScore.textContent = displayScore();
+  console.log(finalScore.textContent);
+
+  return finalScore.textContent;
 }
 
 //allow us to show a dialog message to say the level is finished after hitting
 //a certain score
 function endLevel() {
-  if (showScore > 100) {
+  if (showScore > 50) {
     modalEndLevel.showModal();
     playerPosition = 95;
+    clearInterval(intervalId);
+    clearInterval(timerInterval);
+    // clearTimeout(timeOutId);
+    finalScore.textContent = showScore;
   }
 }
 
 //show dialog message saying you lose the game
 function endGame() {
   modalEndGame.showModal();
+  clearInterval(intervalId);
+  clearInterval(timerInterval);
+  // clearTimeout(timeOutId);
+  health = 3;
+  resetGame.addEventListener("click", () => startGame(1000));
 }
 
 function loseHealth() {
-  modalLoseLife.showModal();
+  // modalLoseLife.showModal();
+  // clearInterval(intervalId);
+  // clearInterval(timerInterval);
   buttonRestart.addEventListener("click", () => startGame(1000), {
     once: true,
   });
 }
 
-buttonStart.addEventListener("click", () => startGame(1000), { once: true });
+function displayTime() {
+  let counterSeconds = 0;
+  let counterMinutes = 0;
+  timerInterval = setInterval(() => {
+    counterSeconds++;
+    if (counterSeconds > 59) {
+      counterSeconds = 0;
+      counterMinutes++;
+      minutes.textContent = `0${counterMinutes}`;
+    }
+    if (counterSeconds < 10) {
+      seconds.textContent = `0${counterSeconds}`;
+    } else {
+      seconds.textContent = counterSeconds;
+    }
+  }, 1000);
+}
 
-// function displayEnemies(){
-//     setInterval(() => {
-//         const badCellDisplay = document.querySelectorAll('.bad')
-//     if(badCellDisplay.classList.contain('bad')){
-//         cellElements.unshift(1);
-//     }
-//         }
-// }, "500")
-// }
+buttonStart.addEventListener("click", () => startGame(500), { once: true });
 
-//console.log(cellElements[playerPosition].classList);
+resetGame.addEventListener("click", () => {
+  createGrid();
+  startGame(1000);
+});

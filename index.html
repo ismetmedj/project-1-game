@@ -21,12 +21,15 @@
             <span id="score">0</span>
           </h2>
           <hr />
-          <h2>Time:<br />00:00</h2>
+          <h2>
+            Time:<br />
+            <span id="minutes">00</span>:<span id="seconds">00</span>
+          </h2>
         </div>
 
         <div>
           <hr />
-          <h2>
+          <h2 id="test">
             Health:<br />
             <span class="health">3</span>
           </h2>
@@ -73,20 +76,23 @@
     </main>
 
     <dialog id="dialog-end-level">
-      <p>Well done! Level finished ! Your score :</p>
-      <button>I've done my best</button>
-      <button>Go to next level</button>
+      <p>
+        Well done! Level finished ! <br />
+        Your score:<span class="final-score">0</span>
+      </p>
+      <button class="button-end-level">I've done my best</button>
+      <button class="button-end-level">Go to next level</button>
     </dialog>
 
     <dialog id="dialog-end-game">
-      <button>You lose ... <br />Your score:</button>
-      <button>Reset</button>
+      <p>You lose 😢 <br />Your score:<span class="final-score">0</span></p>
+      <button id="button-reset">Reset</button>
     </dialog>
 
-    <dialog id="dialog-lose-life">
-      <button>You lose a life...<span class="health">3 remaining</span></button>
+    <!-- <dialog id="dialog-lose-life">
+      <p>You lose a life...<span class="health">3</span> remaining</p>
       <button id="button-restart">Restart</button>
-    </dialog>
+    </dialog> -->
 
     <footer>
       <h4>Credits:</h4>
