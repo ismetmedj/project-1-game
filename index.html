@@ -53,17 +53,15 @@
 
         <ul id="rules-list">
           <li>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Illo, ad.
+            Use ⬅️ and ➡️ to move your player 🟩 and avoid the obstacle
           </li>
           <hr />
           <li>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit.
-            Consequatur, dolor.
+            You'll lose a life everytime you hit a red triangle 🔻
           </li>
           <hr />
           <li>
-            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ea,
-            quisquam?
+            Get one extra life by hitting the yellow baloon 🟡
           </li>
           <hr />
           <li>
@@ -77,15 +75,15 @@
 
     <dialog id="dialog-end-level">
       <p>
-        Well done! Level finished ! <br />
-        Your score:<span class="final-score">0</span>
+        Well done! Level <span id="level-number"> 0</span> finished ! <br />
+        Your score: <span class="final-score"> 0</span>
       </p>
       <button class="button-done-playing">I've done my best</button>
-      <button class="button-end-level">Go to next level</button>
+      <button class="button-end-level">Go to level: <span id="next-level-number"> 0</span></button>
     </dialog>
 
     <dialog id="dialog-end-game">
-      <p>You lose 😢 <br />Your score:<span class="final-score">0</span></p>
+      <p>You lose 😢 <br />Your score: <span class="final-score"> 0</span></p>
       <button id="button-reset">Reset</button>
     </dialog>
 

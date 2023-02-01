@@ -11,6 +11,9 @@ const seconds = document.getElementById("seconds");
 const finalScore = document.querySelectorAll(".final-score");
 const resetGame = document.getElementById("button-reset");
 const nextLevel = document.querySelector(".button-end-level");
+const levelNumber = document.getElementById("level-number")
+const nextLevelNumber = document.getElementById("next-level-number")
+
 
 const colums = 10;
 const rows = 10;
@@ -24,12 +27,14 @@ let health = 3;
 let intervalId = null;
 let timerInterval = null;
 let timeOutId = null;
-let speed = 1000;
+let speed = 500;
 let numberOfEnemies = 1;
 let pause = false;
 let counterSeconds = 0;
 let counterMinutes = 0;
 let debug = Date.now();
+let nombre = 1
+
 
 //Set the grid
 function createGrid() {
@@ -208,8 +213,9 @@ function endLevel() {
   } else {
     if (aimScore > goalScore) {
       pause = true;
+      displayLevelNumber(nombre);
       modalEndLevel.showModal();
-      playerPosition = 95;
+      // playerPosition = 95;
       clearInterval(intervalId);
       // clearInterval(timerInterval);
       cellsClass.splice(0, cellsClass.length);
@@ -218,6 +224,7 @@ function endLevel() {
       speed -= 100;
       // console.log(speed);
       numberOfEnemies++;
+      nombre++
     }
   }
 }
@@ -250,8 +257,9 @@ resetGame.addEventListener("click", () => {
   seconds.textContent = "00";
   aimScore = 0;
   goalScore = 50;
-  speed = 1000;
+  speed = 500;
   numberOfEnemies = 1;
+  nombre = 1;
   createGrid();
   // displayScore()
   displayGrid();
@@ -287,6 +295,15 @@ function displayTime() {
     }
   }, 1000);
 }
+
+function displayLevelNumber(nombre) {
+
+levelNumber.textContent = nombre;
+nextLevelNumber.textContent = nombre+1;
+
+
+}
+
 
 buttonStart.addEventListener("click", () => startGame(speed), { once: true });
 
