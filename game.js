@@ -215,7 +215,7 @@ function endLevel() {
       cellsClass.splice(0, cellsClass.length);
       displayFinalScore();
       goalScore *= 3;
-      // speed -= 100;
+      speed -= 100;
       // console.log(speed);
       numberOfEnemies++;
     }
@@ -252,6 +252,7 @@ resetGame.addEventListener("click", () => {
   goalScore = 50;
   speed = 1000;
   numberOfEnemies = 1;
+  createGrid();
   // displayScore()
   displayGrid();
   startGame(speed);
