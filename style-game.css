@@ -46,6 +46,11 @@ main {
   padding: 0.5rem;
 }
 
+/* #health:: before{
+  content: "\2764"
+  ;
+} */
+
 h2 {
   padding: 1rem;
 }
@@ -154,7 +159,6 @@ h2 {
 }
 
 .bomb {
-
 }
 
 .bomb::before {
