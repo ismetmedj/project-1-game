@@ -40,6 +40,7 @@
       <section id="center-section">
         <div id="button">
           <button id="start-game">Start Game</button>
+          <h2>Level : <span id="level-moment"> 0 </span></h2>
           <button id="score-table">Score Table</button>
         </div>
 
@@ -52,21 +53,14 @@
         </div>
 
         <ul id="rules-list">
-          <li>
-            Use ⬅️ and ➡️ to move your player 🟩 and avoid the obstacle
-          </li>
+          <li>Use ⬅️ and ➡️ to move your player 🟩 and avoid the obstacle</li>
+          <hr />
+          <li>You'll lose a life everytime you hit a red triangle 🔻</li>
+          <hr />
+          <li>Get one extra life by hitting the yellow heart 💛</li>
           <hr />
           <li>
-            You'll lose a life everytime you hit a red triangle 🔻
-          </li>
-          <hr />
-          <li>
-            Get one extra life by hitting the yellow baloon 🟡
-          </li>
-          <hr />
-          <li>
-            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Corporis,
-            iste?
+            Clear the grid by hitting the brown ball 🟤 and get 50 extra points
           </li>
           <hr />
         </ul>
@@ -79,7 +73,9 @@
         Your score: <span class="final-score"> 0</span>
       </p>
       <button class="button-done-playing">I've done my best</button>
-      <button class="button-end-level">Go to level: <span id="next-level-number"> 0</span></button>
+      <button class="button-end-level">
+        Go to level: <span id="next-level-number"> 0</span>
+      </button>
     </dialog>
 
     <dialog id="dialog-end-game">

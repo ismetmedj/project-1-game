@@ -120,6 +120,11 @@ h2 {
 
 .player {
   background-color: green;
+  /* background-image: url(./heart\ image.png);
+  background-size: cover;
+  background-repeat: no-repeat;
+  width: 40px;
+  height: 40px; */
 }
 
 .bad {
@@ -139,6 +144,17 @@ h2 {
 
 .life {
   background-color: yellow;
+  clip-path: path(
+    "M12 4.248c-3.148-5.402-12-3.825-12 2.944 0 4.661 5.571 9.427 13 15.808 6.43-6.381 12-11.147 12-15.808 0-6.792-8.875-8.306-12-2.944z"
+  );
+  /* transform: scale(5); */
+  width: 60px;
+  height: 60px;
+  text-align: center;
+}
+
+.bomb {
+  background-color: brown;
   border-radius: 50%;
 }
 

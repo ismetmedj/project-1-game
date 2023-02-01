@@ -11,9 +11,9 @@ const seconds = document.getElementById("seconds");
 const finalScore = document.querySelectorAll(".final-score");
 const resetGame = document.getElementById("button-reset");
 const nextLevel = document.querySelector(".button-end-level");
-const levelNumber = document.getElementById("level-number")
-const nextLevelNumber = document.getElementById("next-level-number")
-
+const levelNumber = document.getElementById("level-number");
+const nextLevelNumber = document.getElementById("next-level-number");
+const levelMoment = document.getElementById("level-moment");
 
 const colums = 10;
 const rows = 10;
@@ -22,7 +22,7 @@ const cellElements = [];
 let playerPosition = 95;
 let showScore = 0; //
 let aimScore = 0;
-let goalScore = 50;
+let goalScore = 75;
 let health = 3;
 let intervalId = null;
 let timerInterval = null;
@@ -33,8 +33,7 @@ let pause = false;
 let counterSeconds = 0;
 let counterMinutes = 0;
 let debug = Date.now();
-let nombre = 1
-
+let nombre = 1;
 
 //Set the grid
 function createGrid() {
@@ -78,14 +77,17 @@ function displayGrid() {
         // console.log(health);
         healthElement.textContent = health;
       }
+      if (nombre >= 3 && cell === "bomb") {
+        cellsClass.splice(0, cellsClass.length);
+        createGrid();
+        showScore += 50;
+      }
       if (health <= 0) {
         return endGame();
       }
 
       //console.log("Collision !");
       return loseHealth();
-
-      return;
     }
     cellElements[i].className = `cell ${cell}`;
   });
@@ -114,6 +116,9 @@ function createEnemies(number) {
     if (health < 2 && randomNumber > 8) {
       const randomLife = Math.floor(Math.random() * newLineEnemies.length);
       newLineEnemies[randomLife] = "life";
+    } else if (nombre >= 3 && randomNumber >= 9) {
+      const randomBomb = Math.floor(Math.random() * newLineEnemies.length);
+      newLineEnemies[randomBomb] = "bomb";
     } else {
       newLineEnemies[randomIndex] = "bad";
     }
@@ -135,7 +140,7 @@ function startGame(speed) {
   modalEndLevel.close();
   // modalLoseLife.close();
   displayTime();
-
+  levelMoment.textContent = nombre;
   let i = 0;
 
   intervalId = setInterval(() => {
@@ -221,10 +226,10 @@ function endLevel() {
       cellsClass.splice(0, cellsClass.length);
       displayFinalScore();
       goalScore *= 3;
-      speed -= 100;
+      // speed -= 100;
       // console.log(speed);
       numberOfEnemies++;
-      nombre++
+      nombre++;
     }
   }
 }
@@ -256,7 +261,7 @@ resetGame.addEventListener("click", () => {
   minutes.textContent = "00";
   seconds.textContent = "00";
   aimScore = 0;
-  goalScore = 50;
+  goalScore = 75;
   speed = 500;
   numberOfEnemies = 1;
   nombre = 1;
@@ -297,13 +302,9 @@ function displayTime() {
 }
 
 function displayLevelNumber(nombre) {
-
-levelNumber.textContent = nombre;
-nextLevelNumber.textContent = nombre+1;
-
-
+  levelNumber.textContent = nombre;
+  nextLevelNumber.textContent = nombre + 1;
 }
-
 
 buttonStart.addEventListener("click", () => startGame(speed), { once: true });
 
