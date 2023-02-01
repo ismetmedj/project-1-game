@@ -121,12 +121,11 @@ function createEnemies(number) {
   } else if (nombre >= 3 && randomNumber >= 9) {
     const randomBomb = Math.floor(Math.random() * newLineEnemies.length);
     newLineEnemies[randomBomb] = "bomb";
-  } 
+  }
   for (let i = 0; i < number; i++) {
     const randomIndex = Math.floor(Math.random() * newLineEnemies.length);
-    
-      newLineEnemies[randomIndex] = "bad";
-    
+
+    newLineEnemies[randomIndex] = "bad";
   }
   cellsClass.splice(-10);
   cellsClass.unshift(...newLineEnemies);
@@ -135,7 +134,7 @@ createGrid();
 //displayScore();
 
 function startGame(speed) {
-  console.log("from start game");
+  // console.log("from start game");
   clearInterval(intervalId);
   clearInterval(timerInterval);
   intervalId = null;
@@ -151,7 +150,7 @@ function startGame(speed) {
   intervalId = setInterval(() => {
     // console.log(Date.now() - debug);
     // debug = Date.now();
-    console.log("hellooooooo");
+    // console.log("hellooooooo");
     // console.log(speed);
     createEnemies(numberOfEnemies);
     displayGrid();
