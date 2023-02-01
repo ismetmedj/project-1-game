@@ -108,7 +108,7 @@ h2 {
   margin-left: 11rem;
   grid-template-columns: repeat(10, 40px);
   grid-template-rows: repeat(10, 40px);
-  background-color: blue;
+  background-color: white;
   /* border-radius: 50%; */
   overflow: hidden;
 }
@@ -154,8 +154,12 @@ h2 {
 }
 
 .bomb {
-  background-color: brown;
-  border-radius: 50%;
+
+}
+
+.bomb::before {
+  content: "\1F4A3";
+  font-size: 40px;
 }
 
 dialog {
