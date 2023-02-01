@@ -70,6 +70,10 @@ function displayGrid() {
       if (cell === "bad" && cell !== "life") {
         hidePlayer();
         health--;
+        // healthElement.innerHTML = ""
+        // for (boucle sur health) {
+        //   append coeur
+        // }
         healthElement.textContent = health;
       }
       if (cell === "life") {
@@ -111,17 +115,18 @@ function createEnemies(number) {
   //some enemies and allow us to made the enemies go down
   const newLineEnemies = new Array(10).fill("");
   let randomNumber = Math.floor(Math.random() * newLineEnemies.length);
+  if (health < 2 && randomNumber > 8) {
+    const randomLife = Math.floor(Math.random() * newLineEnemies.length);
+    newLineEnemies[randomLife] = "life";
+  } else if (nombre >= 3 && randomNumber >= 9) {
+    const randomBomb = Math.floor(Math.random() * newLineEnemies.length);
+    newLineEnemies[randomBomb] = "bomb";
+  } 
   for (let i = 0; i < number; i++) {
     const randomIndex = Math.floor(Math.random() * newLineEnemies.length);
-    if (health < 2 && randomNumber > 8) {
-      const randomLife = Math.floor(Math.random() * newLineEnemies.length);
-      newLineEnemies[randomLife] = "life";
-    } else if (nombre >= 3 && randomNumber >= 9) {
-      const randomBomb = Math.floor(Math.random() * newLineEnemies.length);
-      newLineEnemies[randomBomb] = "bomb";
-    } else {
+    
       newLineEnemies[randomIndex] = "bad";
-    }
+    
   }
   cellsClass.splice(-10);
   cellsClass.unshift(...newLineEnemies);
@@ -226,7 +231,7 @@ function endLevel() {
       cellsClass.splice(0, cellsClass.length);
       displayFinalScore();
       goalScore *= 3;
-      // speed -= 100;
+      speed -= 50;
       // console.log(speed);
       numberOfEnemies++;
       nombre++;
