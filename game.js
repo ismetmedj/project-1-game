@@ -267,11 +267,14 @@ nextLevel.addEventListener("click", () => {
   aimScore = 0;
   displayGrid();
   pause = false;
+  stopEndLevelMusic()
   startGame(speed);
+
 });
 
 //show dialog message saying you lose the game
 function endGame() {
+  stopPlayMusic();
   endGameMusic();
   modalEndGame.showModal();
   clearInterval(intervalId);
@@ -339,7 +342,9 @@ function displayLevelNumber(nombre) {
 function startMusic() {
   // const audio = new Audio('./sounds/play-mode.mp3');
   // audio.addEventListener('canplaythrough', () => audio.play())
+  playMode.playbackRate=1.5;
   playMode.play();
+
 }
 
 function stopPlayMusic() {
@@ -350,6 +355,11 @@ function stopPlayMusic() {
 function endLevelMusic() {
   // var audio = new Audio('./sounds/end-level.wav');
   endLevelAudio.play();
+}
+
+function stopEndLevelMusic() {
+  // var audio = new Audio('./sounds/end-level.wav');
+  endLevelAudio.pause();
 }
 
 function endGameMusic() {
