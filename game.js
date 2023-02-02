@@ -267,9 +267,8 @@ nextLevel.addEventListener("click", () => {
   aimScore = 0;
   displayGrid();
   pause = false;
-  stopEndLevelMusic()
+  stopEndLevelMusic();
   startGame(speed);
-
 });
 
 //show dialog message saying you lose the game
@@ -285,6 +284,7 @@ function endGame() {
   // clearTimeout(timeOutId);
 }
 resetGame.addEventListener("click", () => {
+  stopEndGameMusic();
   showScore = 0;
   score.textContent = showScore;
   health = 3;
@@ -342,9 +342,8 @@ function displayLevelNumber(nombre) {
 function startMusic() {
   // const audio = new Audio('./sounds/play-mode.mp3');
   // audio.addEventListener('canplaythrough', () => audio.play())
-  playMode.playbackRate=1.5;
+  playMode.playbackRate = 1.5;
   playMode.play();
-
 }
 
 function stopPlayMusic() {
@@ -365,6 +364,11 @@ function stopEndLevelMusic() {
 function endGameMusic() {
   // var audio = new Audio('./sounds/end-game.wav');
   endGameAudio.play();
+}
+
+function stopEndGameMusic() {
+  // var audio = new Audio('./sounds/end-game.wav');
+  endGameAudio.pause();
 }
 
 function loseLifeMusic() {

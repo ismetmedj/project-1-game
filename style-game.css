@@ -108,7 +108,7 @@ h2 {
   margin-left: 11rem;
   grid-template-columns: repeat(10, 40px);
   grid-template-rows: repeat(10, 40px);
-  background-color: white;
+  background-color: rgba(0, 64, 255, 0.715);
   /* border-radius: 50%; */
   overflow: hidden;
 }
@@ -119,7 +119,7 @@ h2 {
 }
 
 .player {
-  background-color: green;
+  background-color: rgb(17, 168, 17);
   /* background-image: url(./heart\ image.png);
   background-size: cover;
   background-repeat: no-repeat;
