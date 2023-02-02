@@ -2,10 +2,9 @@
   box-sizing: border-box;
   padding: 0;
   margin: 0;
-  /* outline: 1px solid red; */
   max-width: 100vw;
-  /* max-height: 100vh; */
   font-family: Arial, Helvetica, sans-serif;
+  /* outline: 1px solid red; */
 }
 
 header {
@@ -109,27 +108,14 @@ h2 {
   grid-template-columns: repeat(10, 40px);
   grid-template-rows: repeat(10, 40px);
   background-color: rgba(0, 64, 255, 0.715);
-  /* border-radius: 50%; */
   overflow: hidden;
-}
-
-.cell {
-  /* outline: 1px solid red; */
-  /* background-color: blue; */
 }
 
 .player {
   background-color: rgb(17, 168, 17);
-  /* background-image: url(./heart\ image.png);
-  background-size: cover;
-  background-repeat: no-repeat;
-  width: 40px;
-  height: 40px; */
 }
 
 .bad {
-  /* background-color: red;
-  border-radius: 50%; */
   width: 0;
   height: 0;
   border-right: 18px solid transparent;
@@ -147,13 +133,9 @@ h2 {
   clip-path: path(
     "M12 4.248c-3.148-5.402-12-3.825-12 2.944 0 4.661 5.571 9.427 13 15.808 6.43-6.381 12-11.147 12-15.808 0-6.792-8.875-8.306-12-2.944z"
   );
-  /* transform: scale(5); */
   width: 60px;
   height: 60px;
   text-align: center;
-}
-
-.bomb {
 }
 
 .bomb::before {
@@ -172,10 +154,6 @@ h2 {
   display: none;
 }
 
-/* .visible{
-  display:visible;
-} */
-
 dialog {
   margin: auto;
   padding: 2rem;
@@ -192,14 +170,6 @@ dialog {
 #test {
   text-align: center;
   height: 89px;
-}
-
-#dialog-end-game::backdrop {
-  /* backdrop-filter: sepia(1) brightness(50%) blur(5px); */
-}
-
-#dialog-end-level::backdrop {
-  /* backdrop-filter: sepia(1) brightness(50%) blur(5px); */
 }
 
 #dialog-end-game > p {
