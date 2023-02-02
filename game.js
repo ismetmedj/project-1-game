@@ -387,7 +387,4 @@ mute.addEventListener("click", () => {
   stopBombMusic();
 });
 
-// resetGame.addEventListener("click", () => {
-//   createGrid();
-//   // startGame(500);
-// });
+
