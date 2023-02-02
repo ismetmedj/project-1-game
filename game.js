@@ -14,6 +14,11 @@ const nextLevel = document.querySelector(".button-end-level");
 const levelNumber = document.getElementById("level-number");
 const nextLevelNumber = document.getElementById("next-level-number");
 const levelMoment = document.getElementById("level-moment");
+const playMode = document.getElementById("play-mode-audio");
+const endLevelAudio = document.getElementById("end-level-audio");
+const endGameAudio = document.getElementById("end-game-audio");
+const loseLifeAudio = document.getElementById("lose-life-audio");
+const bombAudio = document.getElementById("bomb-audio");
 
 const colums = 10;
 const rows = 10;
@@ -70,8 +75,8 @@ function displayGrid() {
       if (cell === "bad" && cell !== "life") {
         hidePlayer();
         health--;
-        showHealth()
-      
+        loseLifeMusic();
+        showHealth();
 
         // for (let i = 0; i < health ; i++){
 
@@ -83,12 +88,14 @@ function displayGrid() {
       }
       if (cell === "life") {
         health++;
+        showHealth();
         // console.log(health);
         // healthElement.textContent = health;
       }
       if (nombre >= 3 && cell === "bomb") {
         cellsClass.splice(0, cellsClass.length);
         createGrid();
+        bombMusic();
         showScore += 50;
       }
       if (health <= 0) {
@@ -138,7 +145,7 @@ function createEnemies(number) {
 createGrid();
 //displayScore();
 
-function showHealth () {
+function showHealth() {
   healthElement.innerHTML = null;
 
   for (let i = 0; i < health; i++) {
@@ -153,7 +160,7 @@ function startGame(speed) {
   clearInterval(intervalId);
   clearInterval(timerInterval);
   intervalId = null;
-  showHealth()
+  showHealth();
   // score =0;
   modalEndGame.close();
   modalEndLevel.close();
@@ -161,6 +168,7 @@ function startGame(speed) {
   displayTime();
   levelMoment.textContent = nombre;
   let i = 0;
+  startMusic();
 
   intervalId = setInterval(() => {
     // console.log(Date.now() - debug);
@@ -238,6 +246,8 @@ function endLevel() {
     if (aimScore > goalScore) {
       pause = true;
       displayLevelNumber(nombre);
+      stopPlayMusic();
+      endLevelMusic();
       modalEndLevel.showModal();
       // playerPosition = 95;
       clearInterval(intervalId);
@@ -262,6 +272,7 @@ nextLevel.addEventListener("click", () => {
 
 //show dialog message saying you lose the game
 function endGame() {
+  endGameMusic();
   modalEndGame.showModal();
   clearInterval(intervalId);
   clearInterval(timerInterval);
@@ -323,6 +334,37 @@ function displayTime() {
 function displayLevelNumber(nombre) {
   levelNumber.textContent = nombre;
   nextLevelNumber.textContent = nombre + 1;
+}
+
+function startMusic() {
+  // const audio = new Audio('./sounds/play-mode.mp3');
+  // audio.addEventListener('canplaythrough', () => audio.play())
+  playMode.play();
+}
+
+function stopPlayMusic() {
+  //  audio = new Audio('./sounds/play-mode.mp3');
+  playMode.pause();
+}
+
+function endLevelMusic() {
+  // var audio = new Audio('./sounds/end-level.wav');
+  endLevelAudio.play();
+}
+
+function endGameMusic() {
+  // var audio = new Audio('./sounds/end-game.wav');
+  endGameAudio.play();
+}
+
+function loseLifeMusic() {
+  // var audio = new Audio('./sounds/lose-life.wav');
+  loseLifeAudio.play();
+}
+
+function bombMusic() {
+  // var audio = new Audio('./sounds/bomb.wav');
+  bombAudio.play();
 }
 
 buttonStart.addEventListener("click", () => startGame(speed), { once: true });
