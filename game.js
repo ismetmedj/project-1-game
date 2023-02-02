@@ -19,6 +19,7 @@ const endLevelAudio = document.getElementById("end-level-audio");
 const endGameAudio = document.getElementById("end-game-audio");
 const loseLifeAudio = document.getElementById("lose-life-audio");
 const bombAudio = document.getElementById("bomb-audio");
+const mute = document.getElementById("mute")
 
 const colums = 10;
 const rows = 10;
@@ -343,6 +344,7 @@ function startMusic() {
   // const audio = new Audio('./sounds/play-mode.mp3');
   // audio.addEventListener('canplaythrough', () => audio.play())
   playMode.playbackRate = 1.5;
+  playMode.loop = true
   playMode.play();
 }
 
@@ -376,14 +378,35 @@ function loseLifeMusic() {
   loseLifeAudio.play();
 }
 
+function endLoseLifeMusic() {
+  // var audio = new Audio('./sounds/lose-life.wav');
+  loseLifeAudio.pause();
+}
+
 function bombMusic() {
   // var audio = new Audio('./sounds/bomb.wav');
   bombAudio.play();
 }
 
+function stopBombMusic() {
+  // var audio = new Audio('./sounds/bomb.wav');
+  bombAudio.pause();
+}
+
 buttonStart.addEventListener("click", () => startGame(speed), { once: true });
+
+mute.addEventListener("click", () => {
+  stopPlayMusic();
+  stopEndLevelMusic();
+  stopEndGameMusic();
+  endLoseLifeMusic();
+  stopBombMusic();
+
+});
 
 // resetGame.addEventListener("click", () => {
 //   createGrid();
 //   // startGame(500);
 // });
+
+
