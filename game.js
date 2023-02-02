@@ -70,16 +70,21 @@ function displayGrid() {
       if (cell === "bad" && cell !== "life") {
         hidePlayer();
         health--;
+        showHealth()
+      
+
+        // for (let i = 0; i < health ; i++){
+
         // healthElement.innerHTML = ""
         // for (boucle sur health) {
         //   append coeur
         // }
-        healthElement.textContent = health;
+        // healthElement.textContent = health;
       }
       if (cell === "life") {
         health++;
         // console.log(health);
-        healthElement.textContent = health;
+        // healthElement.textContent = health;
       }
       if (nombre >= 3 && cell === "bomb") {
         cellsClass.splice(0, cellsClass.length);
@@ -133,12 +138,22 @@ function createEnemies(number) {
 createGrid();
 //displayScore();
 
+function showHealth () {
+  healthElement.innerHTML = null;
+
+  for (let i = 0; i < health; i++) {
+    const span = document.createElement("span");
+    span.classList.add("heart");
+    healthElement.append(span);
+  }
+}
+
 function startGame(speed) {
   // console.log("from start game");
   clearInterval(intervalId);
   clearInterval(timerInterval);
   intervalId = null;
-
+  showHealth()
   // score =0;
   modalEndGame.close();
   modalEndLevel.close();

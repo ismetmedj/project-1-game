@@ -46,11 +46,6 @@ main {
   padding: 0.5rem;
 }
 
-/* #health:: before{
-  content: "\2764"
-  ;
-} */
-
 h2 {
   padding: 1rem;
 }
@@ -166,6 +161,21 @@ h2 {
   font-size: 40px;
 }
 
+.heart::before {
+  content: "\2764";
+  font-size: 40px;
+  color: red;
+  display: visible;
+}
+
+.lose-heart::before {
+  display: none;
+}
+
+/* .visible{
+  display:visible;
+} */
+
 dialog {
   margin: auto;
   padding: 2rem;
@@ -181,6 +191,7 @@ dialog {
 
 #test {
   text-align: center;
+  height: 89px;
 }
 
 #dialog-end-game::backdrop {
