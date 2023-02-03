@@ -323,8 +323,6 @@ function displayLevelNumber(nombre) {
 
 // the 10 next function are the audio setting for the game, endgame, endlevel, loselife and bomb
 function startMusic() {
-  // const audio = new Audio('./sounds/play-mode.mp3');
-  // audio.addEventListener('canplaythrough', () => audio.play())
   playMode.playbackRate = 1.5;
   playMode.loop = true;
   playMode.play();
@@ -386,5 +384,3 @@ mute.addEventListener("click", () => {
   endLoseLifeMusic();
   stopBombMusic();
 });
-
-
